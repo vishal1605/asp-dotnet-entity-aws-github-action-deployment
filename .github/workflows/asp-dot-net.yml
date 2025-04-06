@@ -26,6 +26,9 @@ jobs:
       - name: Install EF Core CLI
         run: dotnet tool install --global dotnet-ef
 
+      - name: Add EF tools to PATH
+        run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+
       - name: Run EF Core migrations (optional)
         run: dotnet ef database update
         env:
