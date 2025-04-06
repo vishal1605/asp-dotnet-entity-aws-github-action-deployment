@@ -1,8 +1,6 @@
 name: asp-dot-net-entity-framwork-aws-github
 
 on:
-  push:
-    branches: ["main"]
   workflow_dispatch:
 
 jobs:
