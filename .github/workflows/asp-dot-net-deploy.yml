@@ -1,0 +1,11 @@
+name: asp-dot-net-entity-framwork-aws-github-deploy-to-aws
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: deployment
+        run: echo "Deploy successfully"
