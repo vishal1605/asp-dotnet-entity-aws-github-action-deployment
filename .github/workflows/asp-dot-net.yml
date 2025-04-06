@@ -35,10 +35,11 @@ jobs:
           pwd
           echo "Contents:"
           ls -la
-          cd entity-framework-aws-deployment/
 
       - name: Run EF Core migrations (optional)
-        run: dotnet ef database update
+        run: |
+          pwd
+          dotnet ef database update --project entity-framework-aws-deployment/
         env:
           ASPNETCORE_ENVIRONMENT: Development
           ConnectionStrings__DefaultConnection: ${{ secrets.DEFAULT_CONNECTION }}
