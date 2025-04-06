@@ -35,7 +35,8 @@ jobs:
           pwd
           echo "Contents:"
           ls -la
-          
+          cd entity-framework-aws-deployment/
+
       - name: Run EF Core migrations (optional)
         run: dotnet ef database update
         env:
