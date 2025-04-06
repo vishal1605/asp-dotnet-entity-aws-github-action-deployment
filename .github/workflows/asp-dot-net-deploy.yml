@@ -2,10 +2,15 @@ name: asp-dot-net-entity-framwork-aws-github-deploy-to-aws
 
 on:
   workflow_dispatch:
+  workflow_run:
+    workflows: ["asp-dot-net-entity-framwork-aws-github-build"]
+    types:
+      - completed
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     steps:
       - name: deployment
         run: echo "Deploy successfully"
