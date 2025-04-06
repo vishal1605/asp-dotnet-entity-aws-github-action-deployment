@@ -54,7 +54,7 @@ jobs:
       - name: Run EF Core migrations (optional)
         run: |
           pwd
-          dotnet ef database update --project entity-framework-aws-deployment/
+          dotnet ef database update
         env:
           ASPNETCORE_ENVIRONMENT: Development
           ConnectionStrings__DefaultConnection: ${{ secrets.DEFAULT_CONNECTION }}
