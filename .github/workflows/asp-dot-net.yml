@@ -67,7 +67,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch'  # Manual trigger only
+    if: github.event_name == 'workflow_dispatch'
 
     steps:
       - name: deploy success
