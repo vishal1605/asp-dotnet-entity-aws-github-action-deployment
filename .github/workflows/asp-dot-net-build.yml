@@ -1,7 +1,8 @@
-name: asp-dot-net-entity-framwork-aws-github
+name: asp-dot-net-entity-framwork-aws-github-build
 
 on:
-  workflow_dispatch:
+  push:
+    branches: ["main"]
 
 jobs:
   build:
@@ -60,12 +61,3 @@ jobs:
 
       - name: Run tests (if you have any)
         run: dotnet test --no-build --verbosity normal
-
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: deploy success
-        run: echo "Deploy success"
