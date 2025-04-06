@@ -1,0 +1,33 @@
+name: asp-dot-net-entity-framwork-aws-github
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.0.x'  # Change this to match your .NET SDK version
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore
+
+      - name: Run EF Core migrations (optional)
+        run: dotnet ef database update
+        env:
+          ASPNETCORE_ENVIRONMENT: Development
+          ConnectionStrings__DefaultConnection: ${{ secrets.DEFAULT_CONNECTION }}
+
+      - name: Run tests (if you have any)
+        run: dotnet test --no-build --verbosity normal
