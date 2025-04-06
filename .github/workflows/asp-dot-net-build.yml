@@ -61,3 +61,13 @@ jobs:
 
       - name: Run tests (if you have any)
         run: dotnet test --no-build --verbosity normal
+
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: success()
+
+    steps:
+      - name: deploy success
+        run: echo "Deploy success"
