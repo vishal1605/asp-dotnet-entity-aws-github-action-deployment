@@ -3,6 +3,7 @@ name: asp-dot-net-entity-framwork-aws-github
 on:
   push:
     branches: ["main"]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -54,7 +55,7 @@ jobs:
       - name: Run EF Core migrations (optional)
         run: |
           pwd
-          dotnet ef database update
+          dotnet ef database update --project entity-framework-aws-deployment/
         env:
           ASPNETCORE_ENVIRONMENT: Development
           ConnectionStrings__DefaultConnection: ${{ secrets.DEFAULT_CONNECTION }}
@@ -66,7 +67,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    if: success()
+    if: github.event_name == 'workflow_dispatch'  # Manual trigger only
 
     steps:
       - name: deploy success
