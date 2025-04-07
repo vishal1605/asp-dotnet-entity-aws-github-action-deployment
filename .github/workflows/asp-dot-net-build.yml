@@ -65,9 +65,19 @@ jobs:
 
   deploy:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     if: success()
 
     steps:
-      - name: deploy success
-        run: echo "Deploy success"
+      - name: Get the code in remote server
+        uses: actions/checkout@v3
+
+      - name: Build
+        run: dotnet build --no-restore
+
+      - name: pwd
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "Contents:"
+          ls -la
