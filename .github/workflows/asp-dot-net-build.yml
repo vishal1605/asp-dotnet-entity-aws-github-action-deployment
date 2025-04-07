@@ -69,12 +69,6 @@ jobs:
     if: success()
 
     steps:
-      - name: Get the code in remote server
-        uses: actions/checkout@v3
-
-      - name: Build
-        run: dotnet build --no-restore
-
       - name: pwd
         run: |
           echo "Current directory:"
