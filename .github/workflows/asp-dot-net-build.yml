@@ -69,6 +69,12 @@ jobs:
     if: success()
 
     steps:
+      - name: Stop current app and clean old files
+        run: |
+          sudo systemctl stop dotnet-app.service
+          cd ~/dot-net-mvc-app
+          sudo rm -rf *
+
       - name: Get the code in remote server
         uses: actions/checkout@v3
 
@@ -80,6 +86,6 @@ jobs:
           ls -la
           dotnet publish -c Release -o /home/ubuntu/dot-net-mvc-app
           ls
-          cd
+          sudo systemctl daemon-reload
           sudo systemctl start dotnet-app.service
 
