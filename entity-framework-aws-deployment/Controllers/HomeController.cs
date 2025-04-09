@@ -94,6 +94,7 @@ namespace entity_framework_aws_deployment.Controllers
                                             user.UserName = property.Value["userName"].ToString();
                                             user.Password = property.Value["password"].ToString();
                                             user.Gender = property.Value["gender"].ToString();
+                                            user.Age = property.Value["age"].ToString();
                                             user.CreatedDate = DateTime.Now.ToString("dd-MM-yyyy");
 
                                             _context.UserDetails.Add(user);
@@ -118,6 +119,7 @@ namespace entity_framework_aws_deployment.Controllers
                                                 user.UserName = property.Value["userName"].ToString();
                                                 user.Password = property.Value["password"].ToString();
                                                 user.Gender = property.Value["gender"].ToString();
+                                                user.Age = property.Value["age"].ToString();
                                                 user.UpdatedDate = DateTime.Now.ToString("dd-MM-yyyy");
                                                 _context.SaveChanges();
 

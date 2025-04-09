@@ -16,6 +16,9 @@ namespace entity_framework_aws_deployment.Models
 
         [Required]
         public string Gender { get; set; } = string.Empty;
+        
+        [Required]
+        public string Age { get; set; } = string.Empty;
 
         public string? CreatedDate { get; set; } = string.Empty;
         public string? UpdatedDate { get; set; } = string.Empty;

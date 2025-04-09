@@ -26,6 +26,10 @@
         {
             label: 'Gender:',
             name: 'gender'
+        },
+        {
+            label: 'Age:',
+            name: 'age'
         }
 
     ],
@@ -51,6 +55,7 @@ const userDetailsTable = new DataTable('#user-details-table', {
         { data: 'userName' },
         { data: 'password' },
         { data: 'gender' },
+        { data: 'age' },
         { data: 'createdDate' },
         { data: 'updatedDate' },
         
