@@ -78,3 +78,8 @@ jobs:
           pwd
           echo "Contents:"
           ls -la
+          dotnet publish -c Release -o /home/ubuntu/dot-net-mvc-app
+          ls
+          cd
+          sudo systemctl start dotnet-app.service
+
