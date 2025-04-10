@@ -76,3 +76,47 @@ const userDetailsTable = new DataTable('#user-details-table', {
     scrollX: true,
     scrollY: '60vh',
 });
+
+editor.on('preSubmit', (e, o, action) => {
+    if (action !== 'remove') {
+        let userName = editor.field('userName');
+        let password = editor.field('password');
+        let gender = editor.field('gender');
+        let age = editor.field('age');
+
+
+        if (!age.val()) {
+            age.error(
+                "Please Eneter Value"
+            );
+        }
+
+        if (isNaN(age.val())) {
+            age.error(
+                "Please Eneter Numeric"
+            );
+        }
+        if (!userName.val()) {
+            userName.error(
+                "Please Eneter Value"
+            );
+        }
+        if (!password.val()) {
+            password.error(
+                "Please Eneter Value"
+            );
+        }
+        if (!gender.val()) {
+            gender.error(
+                "Please Eneter Value"
+            );
+        }
+        
+        
+
+        if (editor.inError()) {
+            return false;
+        }
+
+    }
+})
