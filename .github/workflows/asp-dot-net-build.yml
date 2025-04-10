@@ -15,7 +15,7 @@ jobs:
           - 5432:5432
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: pass@123
+          POSTGRES_PASSWORD: pass@1234
           POSTGRES_DB: entity
         options: >-
           --health-cmd pg_isready
