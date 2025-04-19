@@ -3,6 +3,7 @@ using entity_framework_aws_deployment.Models;
 using entity_framework_aws_deployment.Services;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Data;
 using System.Diagnostics;
 using System.Reflection;
@@ -154,6 +155,57 @@ namespace entity_framework_aws_deployment.Controllers
 
                                     }
                             }
+                            break;
+                        }
+
+                    case "InsertData":
+                        {
+                            JObject requestDataJObject = JObject.Parse(requestData);
+                            HashSet<string> expectedKeys = new HashSet<string> { "userName", "password", "gender", "age" };
+                            List<string> actualKeys = requestDataJObject.Properties().Select(p => p.Name).ToList();
+                            List<string> unexpectedKeys = actualKeys.Where(key => !expectedKeys.Contains(key)).ToList();
+                            List<string> missingKeys = expectedKeys.Where(key => !actualKeys.Contains(key)).ToList();
+
+                            if (unexpectedKeys.Any() || missingKeys.Any())
+                            {
+                                List<string> errorMessages = new List<string>();
+                                if (unexpectedKeys.Any())
+                                {
+                                    errorMessages.Add($"Unexpected key(s): {string.Join(", ", unexpectedKeys)}");
+                                }
+                                if (missingKeys.Any())
+                                {
+                                    errorMessages.Add($"Missing required key(s): {string.Join(", ", missingKeys)}");
+                                }
+                                errorMessages.Add($"Expected keys are: {string.Join(", ", expectedKeys)}");
+
+                                throw new InvalidOperationException($"Invalid 'requestData'. {string.Join(". ", errorMessages)}");
+                            }
+
+                            dynamic? requestDataJSON = JsonConvert.DeserializeAnonymousType(requestData, new
+                            {
+                                userName = "",
+                                password = "",
+                                gender = "",
+                                age = ""
+                            });
+                            if (requestDataJSON is null)
+                                throw new InvalidOperationException("Invalid 'requestData'.");
+
+                            var data = new List<dynamic>();
+
+                            UserDetails? user = new UserDetails();
+                            user.UserName = requestDataJSON.userName;
+                            user.Password = requestDataJSON.password;
+                            user.Gender = requestDataJSON.gender;
+                            user.Age = requestDataJSON.age;
+                            user.CreatedDate = DateTime.Now.ToString("dd-MM-yyyy");
+
+                            _context.UserDetails.Add(user);
+                            _context.SaveChanges();
+                            data.Add(user);
+                            serverResponseDatatable.Data = data;
+
                             break;
                         }
 

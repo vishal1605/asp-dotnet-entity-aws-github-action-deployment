@@ -112,7 +112,6 @@ editor.on('preSubmit', (e, o, action) => {
             );
         }
         
-        console.log("------------")
 
         if (editor.inError()) {
             return false;
